@@ -14,7 +14,7 @@ env:
 jobs:
   Build-And-Test:
     uses: ./.github/workflows/test.yaml
-  PAckage:
+  Package-And-Upload:
     needs: Build-And-Test
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +33,7 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
           docker build -t tlitovsk/clearpoint-sample:${GITHUB_SHA} .
           docker push tlitovsk/clearpoint-sample:${GITHUB_SHA}
-  Deploy-To_infra:
+  Deploy-To-Infra:
     runs-on: ubuntu-latest
     needs: Package
     steps:
@@ -65,5 +65,13 @@ jobs:
             stackName: infra app
             mode: auto-approve-apply
             terraformCloudToken: ${{ secrets.TF_TOKEN_app_terraform_io }}
+        
+        - name: Validate deploy
+          run: | 
+            cd deploy 
+            export ip=$(cdktf output infra | grep infra-ip | awk -F " = " '{print $2}')
+            curl --fail http://$ip/action 
+        
+    
 
       
