@@ -62,7 +62,7 @@ jobs:
             workingDirectory: ./deploy
             terraformVersion: 1.5.3
             cdktfVersion: 0.16.1
-            stackName: my-stack
+            stackName: infra app
             mode: auto-approve-apply
             terraformCloudToken: ${{ secrets.TF_TOKEN_app_terraform_io }}
 
