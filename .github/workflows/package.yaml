@@ -29,6 +29,14 @@ jobs:
           cd app
           go build
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-          docker build -t tlitovsk/clearpoint-sample .
-          docker push tlitovsk/clearpoint-sample
+          docker build -t tlitovsk/clearpoint-sample:${GITHUB_SHA} .
+          docker push tlitovsk/clearpoint-sample:${GITHUB_SHA}
+  Deploy-To_infra:
+    runs-on: ubuntu-latest
+    needs: Package
+    steps:
+        - uses: actions/checkout@v3
+        - uses: webfactory/ssh-agent@v0.7.0
+          with:
+              ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       
