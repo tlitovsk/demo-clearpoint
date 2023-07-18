@@ -41,6 +41,10 @@ jobs:
         - uses: webfactory/ssh-agent@v0.7.0
           with:
               ssh-private-key: ${{ secrets.CLEARPOINT_PRV }}
+              
+        - name: Install pipenv
+          run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+        - run: pipenv install
 
         - uses: actions/setup-node@v1
           with:
@@ -50,6 +54,8 @@ jobs:
           run: |
             cd deploy 
             npx cdktf-cli@0.16.1 get python
+
+        
 
         - name: Run Terraform CDK
           uses: hashicorp/terraform-cdk-action@v0.1.0
