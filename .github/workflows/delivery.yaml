@@ -8,6 +8,8 @@ on:
 env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+  DGO_TOKEN: ${{secrets.DGO_TOKEN}}
+  TF_TOKEN_app_terraform_io: ${{secrets.TF_TOKEN_app_terraform_io}}
 
 jobs:
   Build-And-Test:
@@ -38,5 +40,14 @@ jobs:
         - uses: actions/checkout@v3
         - uses: webfactory/ssh-agent@v0.7.0
           with:
-              ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+              ssh-private-key: ${{ secrets.CLEARPOINT_PRV }}
+        - uses: hashicorp/setup-terraform@v2
+          with:
+            terraform_version: 1.5.3
+        - name: deploy
+          run: |
+            cd deploy
+            cdktf init
+            cdktf deploy infra app
+
       
