@@ -55,8 +55,8 @@ jobs:
             cd deploy 
             npx cdktf-cli@0.16.1 get python
             pipenv install 
-            cdktf init
-            cdktf apply --auto-approve infra app
+            npx cdktf-cli@0.16.1 init
+            npx cdktf-cli@0.16.1 apply --auto-approve infra app
         
         - name: Validate deploy
           run: | 
