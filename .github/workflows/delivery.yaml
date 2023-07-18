@@ -60,7 +60,7 @@ jobs:
         - name: Validate deploy
           run: | 
             cd deploy 
-            export ip=$(npx cdktf-cli@0.16.1 cdktf output infra | grep infra-ip | awk -F " = " '{print $2}')
+            export ip=$(npx cdktf-cli@0.16.1 output infra | grep infra-ip | awk -F " = " '{print $2}')
             curl --fail http://$ip/action 
         
     
