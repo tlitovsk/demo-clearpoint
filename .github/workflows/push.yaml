@@ -1,0 +1,8 @@
+name: Clearpoint server
+run-name: ${{ github.actor }} running pipeline 🚀
+on: [push] 
+
+jobs:
+  Build-And-Test:
+    uses: .github/workflows/test.yaml
+      

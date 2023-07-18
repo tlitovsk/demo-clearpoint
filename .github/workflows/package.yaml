@@ -1,0 +1,33 @@
+name: Package the code
+run-name: ${{ github.actor }} running package
+on: 
+  push: 
+    branches: 
+      - main
+      
+env:
+  DOCKER_USER: ${{secrets.DOCKER_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+
+jobs:
+  Build-And-Test:
+    uses: .github/workflows/test.yaml
+  PAckage:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+      - name: Build
+        run: |
+          cd app
+          go build
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker build -t tlitovsk/clearpoint-sample .
+          docker push tlitovsk/clearpoint-sample
+      
