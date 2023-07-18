@@ -9,7 +9,7 @@ env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   DGO_TOKEN: ${{secrets.DGO_TOKEN}}
-  TF_TOKEN_app_terraform_io: ${{secrets.TF_TOKEN_APP_TERRAFORM_IO}}
+  #TF_TOKEN_app_terraform_io: ${{secrets.TF_TOKEN_APP_TERRAFORM_IO}}
 
 jobs:
   Build-And-Test:
@@ -64,7 +64,7 @@ jobs:
             cdktfVersion: 0.16.1
             stackName: infra app
             mode: auto-approve-apply
-            terraformCloudToken: ${{ secrets.TF_TOKEN_app_terraform_io }}
+            terraformCloudToken: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
         
         - name: Validate deploy
           run: | 
