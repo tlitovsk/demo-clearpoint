@@ -8,7 +8,7 @@ on:
 env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-  DGO_TOKEN: ${{secrets.DGO_TOKEN}}
+  dgo_token: ${{secrets.DGO_TOKEN}}
   TF_TOKEN_app_terraform_io: ${{secrets.TF_TOKEN_APP_TERRAFORM_IO}}
 
 jobs:
