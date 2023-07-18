@@ -41,13 +41,29 @@ jobs:
         - uses: webfactory/ssh-agent@v0.7.0
           with:
               ssh-private-key: ${{ secrets.CLEARPOINT_PRV }}
-        - uses: hashicorp/setup-terraform@v2
+
+        - uses: actions/setup-node@v1
           with:
-            terraform_version: 1.5.3
-        - name: deploy
-          run: |
-            cd deploy
-            cdktf init
-            cdktf deploy infra app
+            node-version: "16"
+
+        - name: Install dependencies
+          run: yarn install
+
+        - name: Generate module and provider bindings
+          run: npx cdktf-cli get
+
+        # Remove this step if you don't have any
+        - name: Run unit tests
+          run: yarn test
+
+        - name: Run Terraform CDK
+          uses: hashicorp/terraform-cdk-action@v0.1.0
+          with:
+            workingDirectory: ./deploy
+            terraformVersion: 1.5.3
+            cdktfVersion: 0.16.1
+            stackName: my-stack
+            mode: auto-approve-apply
+            terraformCloudToken: ${{ secrets.TF_TOKEN_app_terraform_io }}
 
       
