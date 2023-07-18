@@ -4,5 +4,5 @@ on: [push]
 
 jobs:
   Build-And-Test:
-    uses: .github/workflows/test.yaml
+    uses: .github/workflows/test.yaml@${GITHUB_SHA}
       
