@@ -13,6 +13,7 @@ jobs:
   Build-And-Test:
     uses: ./.github/workflows/test.yaml
   PAckage:
+    needs: Build-And-Test
     runs-on: ubuntu-latest
     steps:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
