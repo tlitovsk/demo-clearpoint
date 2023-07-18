@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} running pipeline 🚀
 on: 
   push:
     branches:
-      - '!master'
+      - 'feature/**'
 
 jobs:
   Build-And-Test:
