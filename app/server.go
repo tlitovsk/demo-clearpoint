@@ -10,7 +10,7 @@ func getAction(w http.ResponseWriter, r *http.Request) {
 }
 
 func getRoot(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Welcome\n")
+	io.WriteString(w, "Welcome test\n")
 }
 
 func main() {
