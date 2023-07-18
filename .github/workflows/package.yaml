@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} running package
 on: 
   push: 
     branches: 
-      - main
+      - master
 
 env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}

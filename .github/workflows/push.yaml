@@ -1,9 +1,9 @@
-name: Clearpoint server
+name: Build
 run-name: ${{ github.actor }} running pipeline 🚀
 on: 
   push:
     branches:
-      - '!main'
+      - '!master'
 
 jobs:
   Build-And-Test:
