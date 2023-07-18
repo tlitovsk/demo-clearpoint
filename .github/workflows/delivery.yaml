@@ -46,15 +46,10 @@ jobs:
           with:
             node-version: "16"
 
-        - name: Install dependencies
-          run: yarn install
-
         - name: Generate module and provider bindings
-          run: npx cdktf-cli get
-
-        # Remove this step if you don't have any
-        - name: Run unit tests
-          run: yarn test
+          run: |
+            cd deploy 
+            npx cdktf-cli@0.16.1 get python
 
         - name: Run Terraform CDK
           uses: hashicorp/terraform-cdk-action@v0.1.0
