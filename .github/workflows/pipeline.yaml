@@ -1,6 +1,11 @@
 name: Clearpoint server
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
+
+env:
+  DOCKER_USER: ${{secrets.DOCKER_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+
 jobs:
   Build-And-Test:
     runs-on: ubuntu-latest
@@ -22,3 +27,10 @@ jobs:
           cd app
           go test
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: package
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          cd app
+          docker build -t tlitovsk/clearpoint-sample .
+          docker push tlitovsk/clearpoint-sample
+
