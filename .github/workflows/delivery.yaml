@@ -9,7 +9,7 @@ env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   DGO_TOKEN: ${{secrets.DGO_TOKEN}}
-  #TF_TOKEN_app_terraform_io: ${{secrets.TF_TOKEN_APP_TERRAFORM_IO}}
+  TF_TOKEN_app_terraform_io: ${{secrets.TF_TOKEN_APP_TERRAFORM_IO}}
 
 jobs:
   Build-And-Test:
@@ -50,22 +50,13 @@ jobs:
           with:
             node-version: "16"
 
-        - name: Generate module and provider bindings
+        - name: Deploy
           run: |
             cd deploy 
             npx cdktf-cli@0.16.1 get python
             pipenv install 
-
-        - name: Run Terraform CDK
-          uses: hashicorp/terraform-cdk-action@v0.1.0
-          with:
-            workingDirectory: ./deploy
-            terraformVersion: 1.5.3
-            cdktfVersion: 0.16.1
-            stackName: infra app
-            mode: auto-approve-apply
-            terraformCloudToken: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
-            githubToken: ${{ secrets.GHTFE_TOKEN }}
+            cdktf init
+            cdktf apply --auto-approve infra app
         
         - name: Validate deploy
           run: | 
