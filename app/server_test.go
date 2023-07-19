@@ -32,7 +32,7 @@ func TestRoot(t *testing.T) {
 	if err != nil {
 		t.Errorf("expected error to be nil got %v", err)
 	}
-	if string(data) != "Welcome\n" {
-		t.Errorf("expected 'Action Request HTTP!' got %v", string(data))
+	if string(data) != "Welcome test\n" {
+		t.Errorf("expected 'Welcome test\n' got %v", string(data))
 	}
 }
